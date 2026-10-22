@@ -1,0 +1,21 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { nextLive } from '../data/site';
+---
+
+<BaseLayout title="Quasi fatto" noindex>
+  <section class="container-dm max-w-3xl py-20 sm:py-28">
+    <p class="kicker">Ultimo passaggio</p>
+    <h1 class="mt-4 text-4xl font-extrabold leading-tight sm:text-5xl">
+      Controlla la posta e <span class="text-green">conferma</span> l’iscrizione.
+    </h1>
+    <p class="mt-6 text-lg text-muted">
+      Ti abbiamo mandato un’email con un link di conferma. Finché non lo clicchi non possiamo scriverti, quindi se non
+      la trovi controlla anche spam e promozioni.
+    </p>
+    <p class="mt-4 text-lg text-muted">
+      Ci vediamo <strong class="text-paper">{nextLive.dateLabel.charAt(0).toLowerCase() + nextLive.dateLabel.slice(1)}</strong>.
+    </p>
+    <a href="/" class="btn-ghost mt-10">Torna alla home</a>
+  </section>
+</BaseLayout>

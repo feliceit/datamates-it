@@ -1,0 +1,46 @@
+@import 'tailwindcss';
+@import '@fontsource-variable/manrope';
+
+/* Palette e font dal brand kit (brand-kit/07_sorgenti/tokens.css). */
+@theme {
+  --color-navy: #031f3b;
+  --color-navy-soft: #0a2a4b;
+  --color-line: #355069;
+  --color-green: #12ed97;
+  --color-paper: #fefefe;
+  --color-muted: #b7c3cf;
+  --font-sans: 'Manrope Variable', Arial, sans-serif;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply bg-navy text-paper font-sans antialiased;
+    font-size: 18px;
+    line-height: 1.5;
+  }
+  ::selection {
+    @apply bg-green text-navy;
+  }
+  :focus-visible {
+    @apply outline-2 outline-offset-2 outline-green;
+  }
+}
+
+@layer components {
+  .container-dm {
+    @apply mx-auto w-full max-w-6xl px-4 sm:px-8;
+  }
+  .kicker {
+    @apply text-sm font-bold uppercase tracking-[0.18em] text-green;
+  }
+  /* Pulsante pieno: testo navy su verde (il bianco su verde non ha contrasto). */
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 rounded-full bg-green px-6 py-3 font-extrabold text-navy transition hover:brightness-110;
+  }
+  .btn-ghost {
+    @apply inline-flex items-center justify-center gap-2 rounded-full border border-line px-6 py-3 font-bold text-paper transition hover:border-green;
+  }
+}

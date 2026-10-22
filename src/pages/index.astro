@@ -1,0 +1,170 @@
+---
+import { Image } from 'astro:assets';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SignupForm from '../components/SignupForm.astro';
+import dm from '../assets/dm.png';
+import { founders, nextLive, principles, site } from '../data/site';
+
+const eventJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Event',
+  name: `${nextLive.title}${nextLive.titleAccent}`,
+  description: nextLive.subtitle,
+  startDate: nextLive.date,
+  eventAttendanceMode: 'https://schema.org/OnlineEventAttendanceMode',
+  eventStatus: 'https://schema.org/EventScheduled',
+  location: { '@type': 'VirtualLocation', url: `${site.url}/` },
+  isAccessibleForFree: true,
+  inLanguage: 'it',
+  organizer: { '@type': 'Organization', name: site.name, url: site.url },
+  performer: nextLive.speakers.map((s) => ({ '@type': 'Person', name: s.name })),
+};
+---
+
+<BaseLayout>
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(eventJsonLd)} />
+
+  <!-- Hero -->
+  <section class="container-dm pb-16 pt-12 sm:pt-20">
+    <p class="kicker">Community italiana su analytics, tracking e dati</p>
+    <h1 class="mt-5 max-w-4xl text-[2.6rem] font-extrabold leading-[1.08] sm:text-6xl lg:text-7xl">
+      I dati, raccontati da chi <span class="text-green">ci lavora</span> davvero.
+    </h1>
+    <p class="mt-6 max-w-2xl text-lg text-muted sm:text-xl">
+      Live, approfondimenti e confronto su tracking, analytics e data engineering. Niente corsi da vendere, nessuna
+      agenzia dietro: solo persone che fanno questo mestiere e lo condividono.
+    </p>
+    <div class="mt-8 flex flex-wrap gap-3">
+      <a href="#iscriviti" class="btn-primary">Iscriviti alla prima live</a>
+      <a href="#perche" class="btn-ghost">Perché DataMates</a>
+    </div>
+  </section>
+
+  <!-- Prossima live -->
+  <section id="iscriviti" class="container-dm scroll-mt-6">
+    <div class="overflow-hidden rounded-3xl border border-line bg-navy-soft">
+      <div class="grid gap-10 p-6 sm:p-10 lg:grid-cols-[1.1fr_1fr] lg:gap-14 lg:p-14">
+        <div>
+          <p class="kicker">{nextLive.episode} · Prossima live</p>
+          <h2 class="mt-4 text-4xl font-extrabold leading-tight sm:text-5xl">
+            {nextLive.title}<span class="text-green">{nextLive.titleAccent}</span>
+          </h2>
+          <p class="mt-3 text-lg text-muted">{nextLive.subtitle}</p>
+
+          <p class="mt-6 text-2xl font-bold">
+            <time datetime={nextLive.date}>{nextLive.dateLabel}</time>
+          </p>
+          <p class="text-muted">{nextLive.channels}</p>
+
+          <ul class="mt-8 grid gap-3">
+            {
+              nextLive.agenda.map((item) => (
+                <li class="flex gap-3">
+                  <span class="mt-2.5 size-2 shrink-0 rounded-full bg-green" aria-hidden="true" />
+                  <span>{item}</span>
+                </li>
+              ))
+            }
+          </ul>
+
+          <div class="mt-10 grid grid-cols-2 gap-4 sm:max-w-md">
+            {
+              nextLive.speakers.map((s) => (
+                <figure>
+                  <Image
+                    src={s.photo}
+                    alt={`Foto di ${s.name}`}
+                    width={720}
+                    height={840}
+                    fit="cover"
+                    position="top"
+                    class="aspect-[6/7] w-full rounded-2xl object-cover object-top"
+                  />
+                  <figcaption class="mt-3">
+                    <span class="block font-bold">{s.name}</span>
+                    <span class="block text-sm text-muted">{s.role}</span>
+                  </figcaption>
+                </figure>
+              ))
+            }
+          </div>
+        </div>
+
+        <div class="rounded-2xl bg-navy p-6 sm:p-8 lg:sticky lg:top-6 lg:self-start">
+          <h3 class="text-2xl font-extrabold">Riserva il tuo posto</h3>
+          <p class="mt-2 text-muted">
+            Ti mandiamo il link della diretta e un promemoria. Agli iscritti arrivano anche la registrazione e un
+            <strong class="text-paper">tracking plan</strong> da riusare.
+          </p>
+          <div class="mt-6">
+            <SignupForm id="live" cta="Iscriviti gratis" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Perché -->
+  <section id="perche" class="container-dm scroll-mt-6 pt-24">
+    <p class="kicker">Perché DataMates</p>
+    <h2 class="mt-4 max-w-3xl text-3xl font-extrabold leading-tight sm:text-5xl">
+      Far crescere il mercato italiano dei dati, <span class="text-green">insieme</span>.
+    </h2>
+    <p class="mt-5 max-w-2xl text-lg text-muted">
+      In Italia tracking e dati vengono ancora visti come un accessorio dell’advertising. Noi pensiamo che siano una
+      competenza strategica, e che si impari meglio confrontandosi.
+    </p>
+    <div class="mt-12 grid gap-4 sm:grid-cols-2">
+      {
+        principles.map((p, i) => (
+          <article class="rounded-2xl border border-line p-6 sm:p-8">
+            <span class="text-sm font-bold text-green">0{i + 1}</span>
+            <h3 class="mt-3 text-xl font-extrabold">{p.title}</h3>
+            <p class="mt-2 text-muted">{p.text}</p>
+          </article>
+        ))
+      }
+    </div>
+  </section>
+
+  <!-- Oltre il Pixel -->
+  <section class="container-dm pt-24">
+    <div class="grid items-center gap-10 rounded-3xl border border-line p-6 sm:p-10 lg:grid-cols-[auto_1fr] lg:p-14">
+      <Image src={dm} alt="" width={200} class="mx-auto h-auto w-32 sm:w-44" />
+      <div>
+        <p class="kicker">In preparazione</p>
+        <h2 class="mt-4 text-3xl font-extrabold sm:text-4xl">Oltre il Pixel</h2>
+        <p class="mt-4 max-w-2xl text-lg text-muted">
+          Una serie di live che parte dal problema concreto, il pixel che non scatta, e arriva alla visione strategica
+          sui dati. Puntate tecniche e puntate strategiche si alternano, ogni volta con un tema preciso.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Chi siamo -->
+  <section class="container-dm pt-24">
+    <p class="kicker">Chi c’è dietro</p>
+    <h2 class="mt-4 max-w-3xl text-3xl font-extrabold leading-tight sm:text-4xl">
+      Quattro professionisti del dato, tra Italia e Polonia.
+    </h2>
+    <ul class="mt-8 flex flex-wrap gap-3">
+      {founders.map((name) => <li class="rounded-full border border-line px-5 py-2 font-bold">{name}</li>)}
+    </ul>
+    <p class="mt-6 max-w-2xl text-muted">
+      A ogni live uno di noi conduce, spesso insieme a un ospite esperto dell’argomento. Vuoi proporre un tema o
+      intervenire? Iscriviti e rispondi alla prima email: leggiamo tutto.
+    </p>
+  </section>
+
+  <!-- CTA finale -->
+  <section class="container-dm pt-24">
+    <div class="rounded-3xl bg-green p-6 text-navy sm:p-10 lg:p-14">
+      <h2 class="max-w-2xl text-3xl font-extrabold leading-tight sm:text-4xl">Connect, discuss, go further.</h2>
+      <p class="mt-3 max-w-xl text-lg">Le prossime live e gli approfondimenti, direttamente nella tua casella.</p>
+      <a href="#iscriviti" class="mt-6 inline-flex rounded-full bg-navy px-6 py-3 font-extrabold text-paper hover:bg-navy-soft">
+        Iscriviti a DataMates
+      </a>
+    </div>
+  </section>
+</BaseLayout>

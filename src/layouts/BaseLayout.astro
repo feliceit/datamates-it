@@ -1,0 +1,65 @@
+---
+import '../styles/global.css';
+import { Image } from 'astro:assets';
+import logo from '../assets/logo-negativo.png';
+import { site } from '../data/site';
+
+interface Props {
+  title?: string;
+  description?: string;
+  noindex?: boolean;
+}
+
+const { title, description = site.description, noindex = false } = Astro.props;
+const fullTitle = title ? `${title} · ${site.name}` : `${site.name} · ${site.payoff}`;
+const canonical = new URL(Astro.url.pathname, site.url).href;
+const ogImage = new URL('/og.png', site.url).href;
+---
+
+<!doctype html>
+<html lang="it">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    {noindex && <meta name="robots" content="noindex" />}
+    <meta name="theme-color" content="#031F3B" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/favicon.png" type="image/png" sizes="256x256" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={site.name} />
+    <meta property="og:locale" content="it_IT" />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+  </head>
+  <body class="min-h-screen">
+    <header class="container-dm flex items-center justify-between py-5">
+      <a href="/" aria-label="DataMates, home">
+        <Image src={logo} alt="DataMates" width={168} class="h-auto w-[136px] sm:w-[168px]" loading="eager" />
+      </a>
+      <a href="/#iscriviti" class="btn-primary px-5 py-2 text-sm">Iscriviti</a>
+    </header>
+
+    <main>
+      <slot />
+    </main>
+
+    <footer class="mt-24 border-t border-line/60">
+      <div class="container-dm flex flex-col gap-4 py-10 text-sm text-muted sm:flex-row sm:items-center sm:justify-between">
+        <p><span class="font-bold text-paper">DataMates</span> · {site.payoff}</p>
+        <nav class="flex gap-6" aria-label="Link legali">
+          <a href="/privacy-policy" class="hover:text-green">Privacy policy</a>
+        </nav>
+        <p>© {new Date().getFullYear()} DataMates</p>
+      </div>
+    </footer>
+  </body>
+</html>

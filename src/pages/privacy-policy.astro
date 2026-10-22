@@ -1,0 +1,72 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+// TODO prima della messa online: indicare il titolare del trattamento
+// (DataMates non è ancora un soggetto giuridico) e una casella di contatto.
+const controller = '[TITOLARE DEL TRATTAMENTO — da definire]';
+const contactEmail = '[email di contatto — da definire]';
+const updated = '22 ottobre 2026';
+---
+
+<BaseLayout title="Privacy policy" description="Come DataMates tratta i dati di chi si iscrive alle live e alla newsletter.">
+  <article class="container-dm max-w-3xl py-16 sm:py-20">
+    <p class="kicker">Informativa</p>
+    <h1 class="mt-4 text-4xl font-extrabold sm:text-5xl">Privacy policy</h1>
+    <p class="mt-3 text-sm text-muted">Ultimo aggiornamento: {updated}</p>
+
+    <div class="mt-10 grid gap-8 text-muted [&_h2]:text-xl [&_h2]:font-extrabold [&_h2]:text-paper [&_strong]:text-paper">
+      <section>
+        <h2>Chi tratta i tuoi dati</h2>
+        <p class="mt-2">Titolare del trattamento: <strong>{controller}</strong>. Per qualsiasi richiesta: {contactEmail}.</p>
+      </section>
+
+      <section>
+        <h2>Quali dati raccogliamo</h2>
+        <p class="mt-2">
+          Quando ti iscrivi raccogliamo il tuo <strong>indirizzo email</strong> e, se lo indichi, il tuo
+          <strong>nome</strong>. Non raccogliamo altri dati tramite il sito.
+        </p>
+      </section>
+
+      <section>
+        <h2>Perché li usiamo</h2>
+        <p class="mt-2">
+          Per mandarti gli inviti e i promemoria delle live, le registrazioni, i materiali collegati e la newsletter di
+          DataMates. La base giuridica è il tuo <strong>consenso</strong> (art. 6.1.a GDPR), che dai spuntando la
+          casella del modulo e confermando l’iscrizione dal link che ricevi via email.
+        </p>
+      </section>
+
+      <section>
+        <h2>Chi li gestisce per noi</h2>
+        <p class="mt-2">
+          Le iscrizioni e gli invii sono gestiti con <strong>Brevo</strong> (Sendinblue SAS, Francia), che tratta i dati
+          nell’Unione Europea come responsabile del trattamento. Il sito è ospitato su <strong>GitHub Pages</strong>
+          (GitHub, Inc.), che per ragioni di sicurezza può registrare l’indirizzo IP dei visitatori nei log tecnici.
+        </p>
+      </section>
+
+      <section>
+        <h2>Per quanto tempo</h2>
+        <p class="mt-2">
+          Conserviamo i dati finché resti iscritto. Ogni email contiene un link per disiscriverti: dopo la
+          disiscrizione non ti scriviamo più.
+        </p>
+      </section>
+
+      <section>
+        <h2>Cookie</h2>
+        <p class="mt-2">Il sito non usa cookie di profilazione né strumenti di analisi.</p>
+      </section>
+
+      <section>
+        <h2>I tuoi diritti</h2>
+        <p class="mt-2">
+          Puoi chiedere in qualsiasi momento di accedere ai tuoi dati, correggerli, cancellarli, limitarne l’uso o
+          riceverne una copia, e puoi revocare il consenso. Hai anche il diritto di presentare reclamo al Garante per la
+          protezione dei dati personali.
+        </p>
+      </section>
+    </div>
+  </article>
+</BaseLayout>

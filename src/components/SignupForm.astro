@@ -1,0 +1,96 @@
+---
+// Form di iscrizione che invia direttamente al modulo Brevo (nessun backend:
+// il sito è statico su GitHub Pages). I nomi dei campi (EMAIL, FIRSTNAME,
+// OPT_IN, email_address_check, locale) sono quelli del codice HTML incorporato
+// di Brevo: se nel modulo si aggiungono campi, vanno aggiunti anche qui.
+interface Props {
+  id: string;
+  cta?: string;
+}
+
+const { id, cta = 'Iscriviti' } = Astro.props;
+const action = import.meta.env.PUBLIC_BREVO_FORM_URL ?? '';
+---
+
+<form
+  class="signup-form grid gap-3"
+  method="POST"
+  action={action || undefined}
+  data-configured={action ? 'true' : 'false'}
+>
+  <div class="grid gap-3">
+    <label class="grid gap-1 text-sm font-bold" for={`${id}-name`}>
+      Nome
+      <input
+        id={`${id}-name`}
+        name="FIRSTNAME"
+        type="text"
+        autocomplete="given-name"
+        class="w-full min-w-0 rounded-xl border border-line bg-navy px-4 py-3 text-base font-normal text-paper placeholder:text-muted/70 focus:border-green"
+        placeholder="Come ti chiami"
+      />
+    </label>
+    <label class="grid gap-1 text-sm font-bold" for={`${id}-email`}>
+      Email *
+      <input
+        id={`${id}-email`}
+        name="EMAIL"
+        type="email"
+        required
+        autocomplete="email"
+        class="w-full min-w-0 rounded-xl border border-line bg-navy px-4 py-3 text-base font-normal text-paper placeholder:text-muted/70 focus:border-green"
+        placeholder="nome@azienda.it"
+      />
+    </label>
+  </div>
+
+  <label class="flex items-start gap-3 text-sm text-muted" for={`${id}-optin`}>
+    <input id={`${id}-optin`} name="OPT_IN" type="checkbox" value="1" required class="mt-1 size-4 accent-green" />
+    <span>
+      Voglio ricevere gli inviti alle live e la newsletter di DataMates. Ho letto la
+      <a href="/privacy-policy" class="text-paper underline underline-offset-2 hover:text-green">privacy policy</a>.
+      Puoi disiscriverti quando vuoi. *
+    </span>
+  </label>
+
+  <!-- Honeypot anti-spam di Brevo: deve restare vuoto. -->
+  <input type="text" name="email_address_check" value="" tabindex="-1" autocomplete="off" class="hidden" aria-hidden="true" />
+  <input type="hidden" name="locale" value="it" />
+
+  <div class="flex flex-wrap items-center gap-4">
+    <button type="submit" class="btn-primary">{cta}</button>
+    <p class="signup-status text-sm" role="status" aria-live="polite"></p>
+  </div>
+</form>
+
+<script>
+  // Invio in background: Brevo non espone CORS, quindi la risposta è opaca.
+  // Se la richiesta parte, mostriamo il messaggio di conferma (double opt-in).
+  document.querySelectorAll<HTMLFormElement>('.signup-form').forEach((form) => {
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      const status = form.querySelector<HTMLElement>('.signup-status');
+      const button = form.querySelector<HTMLButtonElement>('button[type="submit"]');
+      if (!status || !button) return;
+
+      if (form.dataset.configured !== 'true') {
+        status.textContent = 'Iscrizioni non ancora attive: torna tra poco.';
+        status.className = 'signup-status text-sm text-muted';
+        return;
+      }
+
+      button.disabled = true;
+      status.textContent = 'Invio in corso…';
+      status.className = 'signup-status text-sm text-muted';
+
+      try {
+        await fetch(form.action, { method: 'POST', body: new FormData(form), mode: 'no-cors' });
+        window.location.href = '/grazie';
+      } catch {
+        status.textContent = 'Qualcosa è andato storto. Riprova tra qualche minuto.';
+        status.className = 'signup-status text-sm text-paper';
+        button.disabled = false;
+      }
+    });
+  });
+</script>
