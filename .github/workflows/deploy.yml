@@ -19,9 +19,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      # La versione di pnpm la prende da "packageManager" in package.json.
       - uses: withastro/action@v3
-        with:
-          package-manager: pnpm@10
         env:
           PUBLIC_BREVO_FORM_URL: ${{ vars.PUBLIC_BREVO_FORM_URL }}
 
