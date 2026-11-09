@@ -20,10 +20,12 @@ export const nextLive = {
   // Link "Aggiungi a Google Calendar" della pagina di conferma (orari in UTC).
   calendarDates: '20261111T120000Z/20261111T130000Z',
   channels: 'In diretta su YouTube e LinkedIn, in pausa pranzo',
+  pitch:
+    'Mettiamo alla prova l’AI su un container Google Tag Manager: vediamo cosa trova, dove sbaglia e cosa resta a chi la misurazione la fa per mestiere. Porta le tue domande e le tue obiezioni.',
   agenda: [
     'Cos’è l’MCP (Model Context Protocol) e come si collega a un assistente AI',
     'Demo live: audit di un container Google Tag Manager con Claude',
-    'Le vostre domande, in diretta dai commenti',
+    'Le vostre domande e obiezioni, in diretta dai commenti',
   ],
   speakers: [
     { name: 'Paolo Bietolini', role: 'Tracking & Analytics', photo: paolo },
