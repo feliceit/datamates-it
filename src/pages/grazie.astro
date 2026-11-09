@@ -1,6 +1,15 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { nextLive } from '../data/site';
+import { nextLive, site } from '../data/site';
+
+const calendarUrl =
+  'https://calendar.google.com/calendar/render?' +
+  new URLSearchParams({
+    action: 'TEMPLATE',
+    text: `DataMates · ${nextLive.title}${nextLive.titleAccent}`,
+    dates: nextLive.calendarDates,
+    details: `${nextLive.subtitle}. ${nextLive.channels}. Il link della diretta arriva per email. ${site.url}`,
+  }).toString();
 ---
 
 <BaseLayout title="Quasi fatto" noindex>
@@ -16,6 +25,9 @@ import { nextLive } from '../data/site';
     <p class="mt-4 text-lg text-muted">
       Ci vediamo <strong class="text-paper">{nextLive.dateLabel.charAt(0).toLowerCase() + nextLive.dateLabel.slice(1)}</strong>.
     </p>
-    <a href="/" class="btn-ghost mt-10">Torna alla home</a>
+    <div class="mt-10 flex flex-wrap gap-3">
+      <a href={calendarUrl} class="btn-primary" target="_blank" rel="noopener">Aggiungi a Google Calendar</a>
+      <a href="/" class="btn-ghost">Torna alla home</a>
+    </div>
   </section>
 </BaseLayout>
