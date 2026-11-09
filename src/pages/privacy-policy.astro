@@ -1,11 +1,10 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 
-// TODO prima della messa online: indicare il titolare del trattamento
-// (DataMates non è ancora un soggetto giuridico) e una casella di contatto.
-const controller = '[TITOLARE DEL TRATTAMENTO — da definire]';
-const contactEmail = '[email di contatto — da definire]';
-const updated = '22 ottobre 2026';
+// DataMates non è ancora un soggetto giuridico: per ora il titolare è Tillde S.r.l.s.
+const controller = 'Tillde S.r.l.s., via Enrico Fermi 3, Pietraperzia (EN), P.IVA 01343450860';
+const contactEmail = 'info@tillde.com';
+const updated = '9 novembre 2026';
 ---
 
 <BaseLayout title="Privacy policy" description="Come DataMates tratta i dati di chi si iscrive alle live e alla newsletter.">
@@ -17,14 +16,16 @@ const updated = '22 ottobre 2026';
     <div class="mt-10 grid gap-8 text-muted [&_h2]:text-xl [&_h2]:font-extrabold [&_h2]:text-paper [&_strong]:text-paper">
       <section>
         <h2>Chi tratta i tuoi dati</h2>
-        <p class="mt-2">Titolare del trattamento: <strong>{controller}</strong>. Per qualsiasi richiesta: {contactEmail}.</p>
+        <p class="mt-2">Titolare del trattamento: <strong>{controller}</strong>, che organizza le live di DataMates. Per qualsiasi
+          richiesta: <a href={`mailto:${contactEmail}`} class="text-paper underline underline-offset-2">{contactEmail}</a>.</p>
       </section>
 
       <section>
         <h2>Quali dati raccogliamo</h2>
         <p class="mt-2">
-          Quando ti iscrivi raccogliamo il tuo <strong>indirizzo email</strong>. Non raccogliamo altri dati tramite il
-          sito.
+          Quando ti iscrivi dal sito raccogliamo il tuo <strong>indirizzo email</strong>. Se ti iscrivi da un modulo nelle
+          inserzioni di Facebook o Instagram raccogliamo <strong>nome, email</strong> e le risposte che scegli di dare
+          (il tuo ambito di lavoro e, se vuoi, una domanda per la live).
         </p>
       </section>
 
@@ -33,7 +34,7 @@ const updated = '22 ottobre 2026';
         <p class="mt-2">
           Per mandarti gli inviti e i promemoria delle live, le registrazioni, i materiali collegati e la newsletter di
           DataMates. La base giuridica è il tuo <strong>consenso</strong> (art. 6.1.a GDPR), che dai spuntando la
-          casella del modulo e confermando l’iscrizione dal link che ricevi via email.
+          casella del modulo (sul sito, confermando poi l’iscrizione dal link che ricevi via email).
         </p>
       </section>
 
@@ -42,7 +43,9 @@ const updated = '22 ottobre 2026';
         <p class="mt-2">
           Le iscrizioni e gli invii sono gestiti con <strong>Brevo</strong> (Sendinblue SAS, Francia), che tratta i dati
           nell’Unione Europea come responsabile del trattamento. Il sito è ospitato su <strong>GitHub Pages</strong>
-          (GitHub, Inc.), che per ragioni di sicurezza può registrare l’indirizzo IP dei visitatori nei log tecnici.
+          (GitHub, Inc.), che per ragioni di sicurezza può registrare l’indirizzo IP dei visitatori nei log tecnici. Le
+          iscrizioni dai moduli delle inserzioni passano da <strong>Meta Platforms Ireland</strong>, che le raccoglie per
+          nostro conto prima che le importiamo in Brevo.
         </p>
       </section>
 
