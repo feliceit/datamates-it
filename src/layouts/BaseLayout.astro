@@ -2,7 +2,7 @@
 import '../styles/global.css';
 import { Image } from 'astro:assets';
 import logo from '../assets/logo-negativo.png';
-import { site } from '../data/site';
+import { nextLive, site } from '../data/site';
 
 interface Props {
   title?: string;
@@ -46,7 +46,15 @@ const ogImage = new URL('/og.png', site.url).href;
       <a href="/" aria-label="DataMates, home">
         <Image src={logo} alt="DataMates" width={168} class="h-auto w-[136px] sm:w-[168px]" loading="eager" />
       </a>
-      <a href="/#iscriviti" class="btn-primary px-5 py-2 text-sm">Iscriviti</a>
+      {
+        nextLive.recordingUrl ? (
+          <a href={nextLive.recordingUrl} class="btn-primary px-5 py-2 text-sm" target="_blank" rel="noopener">
+            Guarda la registrazione
+          </a>
+        ) : (
+          <a href="/#iscriviti" class="btn-primary px-5 py-2 text-sm">Iscriviti</a>
+        )
+      }
     </header>
 
     <main>

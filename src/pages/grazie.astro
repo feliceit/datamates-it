@@ -22,11 +22,21 @@ const calendarUrl =
       Ti abbiamo mandato un’email con un link di conferma. Finché non lo clicchi non possiamo scriverti, quindi se non
       la trovi controlla anche spam e promozioni.
     </p>
-    <p class="mt-4 text-lg text-muted">
-      Ci vediamo <strong class="text-paper">{nextLive.dateLabel.charAt(0).toLowerCase() + nextLive.dateLabel.slice(1)}</strong>.
-    </p>
+    {
+      !nextLive.recordingUrl && (
+        <p class="mt-4 text-lg text-muted">
+          Ci vediamo <strong class="text-paper">{nextLive.dateLabel.charAt(0).toLowerCase() + nextLive.dateLabel.slice(1)}</strong>.
+        </p>
+      )
+    }
     <div class="mt-10 flex flex-wrap gap-3">
-      <a href={calendarUrl} class="btn-primary" target="_blank" rel="noopener">Aggiungi a Google Calendar</a>
+      {
+        nextLive.recordingUrl ? (
+          <a href={nextLive.recordingUrl} class="btn-primary" target="_blank" rel="noopener">Guarda la registrazione</a>
+        ) : (
+          <a href={calendarUrl} class="btn-primary" target="_blank" rel="noopener">Aggiungi a Google Calendar</a>
+        )
+      }
       <a href="/" class="btn-ghost">Torna alla home</a>
     </div>
   </section>
