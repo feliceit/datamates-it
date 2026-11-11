@@ -44,6 +44,10 @@ export const nextLive = {
   // Link "Aggiungi a Google Calendar" della pagina di conferma (orari in UTC).
   calendarDates: `${calendarStamp(liveStart)}/${calendarStamp(liveEnd)}`,
   channels: 'In diretta su YouTube e LinkedIn, in pausa pranzo',
+  // Registrazione su YouTube. Finché è valorizzata il sito è in modalità "dopo la live":
+  // niente modulo di iscrizione, al suo posto i ringraziamenti e il link al video.
+  // Per annunciare la puntata successiva: aggiornare i dati qui sopra e lasciarla vuota ('').
+  recordingUrl: 'https://www.youtube.com/watch?v=KXIWYCHsibQ',
   pitch:
     'Mettiamo alla prova l’AI su un container Google Tag Manager: vediamo cosa trova, dove sbaglia e cosa resta a chi la misurazione la fa per mestiere. Porta le tue domande e le tue obiezioni.',
   agenda: [
