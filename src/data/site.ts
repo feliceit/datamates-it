@@ -9,16 +9,40 @@ export const site = {
     'Community italiana su analytics, tracking e dati. Live gratuite e approfondimenti per chi questo lavoro lo fa davvero, senza corsi da vendere.',
 };
 
+// Data e durata della prossima live: etichetta, fine evento e link al calendario
+// si ricavano da qui, così non ci sono copie da tenere allineate a mano.
+const liveDate = '2026-11-11T13:00:00+01:00';
+const liveDurationMinutes = 60;
+
+const liveStart = new Date(liveDate);
+const liveEnd = new Date(liveStart.getTime() + liveDurationMinutes * 60_000);
+const romeDay = new Intl.DateTimeFormat('it-IT', {
+  timeZone: 'Europe/Rome',
+  weekday: 'long',
+  day: 'numeric',
+  month: 'long',
+  year: 'numeric',
+}).format(liveStart);
+const romeTime = new Intl.DateTimeFormat('it-IT', {
+  timeZone: 'Europe/Rome',
+  hour: '2-digit',
+  minute: '2-digit',
+}).format(liveStart);
+// Formato richiesto da Google Calendar: 20261111T120000Z (UTC, senza separatori).
+const calendarStamp = (d: Date) => d.toISOString().replace(/[-:]|\.\d{3}/g, '');
+
 // Prossima live. Aggiornare qui data, titolo e speaker per le puntate successive.
 export const nextLive = {
   episode: 'Puntata 0',
   title: 'Fare tracking con l’',
   titleAccent: 'AI',
   subtitle: 'MCP di GTM, audit e nuovi workflow con l’intelligenza artificiale',
-  date: '2026-11-11T13:00:00+01:00',
-  dateLabel: 'Mercoledì 11 novembre 2026, ore 13:00',
+  date: liveDate,
+  endDate: liveEnd.toISOString(),
+  // Es. "Mercoledì 11 novembre 2026, ore 13:00" (ora italiana).
+  dateLabel: `${romeDay.charAt(0).toUpperCase()}${romeDay.slice(1)}, ore ${romeTime}`,
   // Link "Aggiungi a Google Calendar" della pagina di conferma (orari in UTC).
-  calendarDates: '20261111T120000Z/20261111T130000Z',
+  calendarDates: `${calendarStamp(liveStart)}/${calendarStamp(liveEnd)}`,
   channels: 'In diretta su YouTube e LinkedIn, in pausa pranzo',
   pitch:
     'Mettiamo alla prova l’AI su un container Google Tag Manager: vediamo cosa trova, dove sbaglia e cosa resta a chi la misurazione la fa per mestiere. Porta le tue domande e le tue obiezioni.',
