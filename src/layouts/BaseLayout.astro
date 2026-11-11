@@ -42,19 +42,43 @@ const ogImage = new URL('/og.png', site.url).href;
     <meta name="twitter:card" content="summary_large_image" />
   </head>
   <body class="min-h-screen">
-    <header class="container-dm flex items-center justify-between py-5">
-      <a href="/" aria-label="DataMates, home">
-        <Image src={logo} alt="DataMates" width={168} class="h-auto w-[136px] sm:w-[168px]" loading="eager" />
+    <header class="container-dm flex items-center justify-between gap-3 py-5">
+      <a href="/" class="min-w-0" aria-label="DataMates, home">
+        <Image src={logo} alt="DataMates" width={168} class="h-auto w-[136px] max-w-full sm:w-[168px]" loading="eager" />
       </a>
-      {
-        nextLive.recordingUrl ? (
-          <a href={nextLive.recordingUrl} class="btn-primary px-5 py-2 text-sm" target="_blank" rel="noopener">
-            Guarda la registrazione
-          </a>
-        ) : (
-          <a href="/#iscriviti" class="btn-primary px-5 py-2 text-sm">Iscriviti</a>
-        )
-      }
+      <div class="flex items-center gap-2">
+        {
+          site.discordUrl && (
+            <a
+              href={site.discordUrl}
+              class="btn-ghost px-4 py-2 text-sm"
+              target="_blank"
+              rel="noopener"
+              aria-label="Entra nel server Discord di DataMates"
+            >
+              Discord
+            </a>
+          )
+        }
+        {
+          nextLive.recordingUrl ? (
+            <a
+              href={nextLive.recordingUrl}
+              class:list={[
+                'btn-primary px-5 py-2 text-sm',
+                // Su mobile non c'è spazio per due pulsanti: resta Discord, la registrazione è subito sotto nell'hero.
+                site.discordUrl && 'hidden sm:inline-flex',
+              ]}
+              target="_blank"
+              rel="noopener"
+            >
+              Guarda la registrazione
+            </a>
+          ) : (
+            <a href="/#iscriviti" class="btn-primary px-5 py-2 text-sm">Iscriviti</a>
+          )
+        }
+      </div>
     </header>
 
     <main>

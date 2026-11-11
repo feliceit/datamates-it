@@ -5,6 +5,8 @@ export const site = {
   name: 'DataMates',
   url: 'https://datamates.it',
   payoff: 'connect, discuss, go further',
+  // Invito al server Discord (senza scadenza). Lasciare vuoto ('') per nascondere il pulsante nell'header.
+  discordUrl: 'https://discord.gg/D7W4AvsCJy',
   description:
     'Community italiana su analytics, tracking e dati. Live gratuite e approfondimenti per chi questo lavoro lo fa davvero, senza corsi da vendere.',
 };
