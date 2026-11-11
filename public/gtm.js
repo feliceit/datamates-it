@@ -7,7 +7,6 @@
     "ad_user_data",
     "ad_personalization",
     "analytics_storage",
-
   ];
   const consentDefault = {
     ...Object.fromEntries(
