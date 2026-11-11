@@ -12,7 +12,8 @@ interface Props {
 
 const { title, description = site.description, noindex = false } = Astro.props;
 const fullTitle = title ? `${title} · ${site.name}` : `${site.name} · ${site.payoff}`;
-const canonical = new URL(Astro.url.pathname, site.url).href;
+// Con build.format 'file' il pathname finisce in .html: l'URL pubblico è senza estensione.
+const canonical = new URL(Astro.url.pathname.replace(/\.html$/, ''), site.url).href;
 const ogImage = new URL('/og.png', site.url).href;
 ---
 

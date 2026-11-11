@@ -11,6 +11,8 @@ const eventJsonLd = {
   name: `${nextLive.title}${nextLive.titleAccent}`,
   description: nextLive.subtitle,
   startDate: nextLive.date,
+  endDate: nextLive.endDate,
+  image: [`${site.url}/og.png`],
   eventAttendanceMode: 'https://schema.org/OnlineEventAttendanceMode',
   eventStatus: 'https://schema.org/EventScheduled',
   location: { '@type': 'VirtualLocation', url: `${site.url}/` },
@@ -36,7 +38,7 @@ const eventJsonLd = {
       vendere a fine puntata.
     </p>
     <div class="mt-8 flex flex-wrap gap-3">
-      <a href="#iscriviti" class="btn-primary">Iscriviti alla prima live</a>
+      <a href="#iscriviti" class="btn-primary">Iscriviti alla prossima live</a>
       <a href="#perche" class="btn-ghost">Perché DataMates</a>
     </div>
   </section>
