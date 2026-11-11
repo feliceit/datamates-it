@@ -5,8 +5,9 @@ export const site = {
   name: 'DataMates',
   url: 'https://datamates.it',
   payoff: 'connect, discuss, go further',
-  // Invito al server Discord (senza scadenza). Lasciare vuoto ('') per nascondere il pulsante nell'header.
-  discordUrl: 'https://discord.gg/D7W4AvsCJy',
+  // Invito al server Discord. Scade dopo 7 giorni: va sostituito a ogni rinnovo, altrimenti il pulsante
+  // nell'header porta a un invito non valido. Lasciare vuoto ('') per nascondere il pulsante.
+  discordUrl: 'https://discord.gg/67aUsYQ2',
   description:
     'Community italiana su analytics, tracking e dati. Live gratuite e approfondimenti per chi questo lavoro lo fa davvero, senza corsi da vendere.',
 };
