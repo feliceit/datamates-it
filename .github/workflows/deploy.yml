@@ -23,7 +23,7 @@ jobs:
       - uses: withastro/action@v3
         env:
           PUBLIC_BREVO_FORM_URL: ${{ vars.PUBLIC_BREVO_FORM_URL }}
-
+          PUBLIC_GTM_ID: ${{ vars.PUBLIC_GTM_ID }}
   deploy:
     needs: build
     runs-on: ubuntu-latest

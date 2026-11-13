@@ -9,7 +9,7 @@ interface Props {
   description?: string;
   noindex?: boolean;
 }
-
+const gtmId = import.meta.env.PUBLIC_GTM_ID;
 const { title, description = site.description, noindex = false } = Astro.props;
 const fullTitle = title ? `${title} · ${site.name}` : `${site.name} · ${site.payoff}`;
 // Con build.format 'file' il pathname finisce in .html: l'URL pubblico è senza estensione.
@@ -23,6 +23,7 @@ const ogImage = new URL('/og.png', site.url).href;
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{fullTitle}</title>
+    {gtmId && <script is:inline src="/gtm.js" data-gtm-id={gtmId}></script>}
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
     {noindex && <meta name="robots" content="noindex" />}
